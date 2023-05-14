@@ -1,31 +1,34 @@
+import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from io import BytesIO
 
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    def get_since(self, path, args):
+        cur_dir = os.getcwd()
+        os.path.getmtime('../storage')
+        if 'date' not in args.keys():
+            self.send_response(418)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b'The server responded with a status of 418 (I\'m a Teapot)</br> Parameter date '
+                             b'should be defined')
+            return
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(b'Hello, world! since + ' + args['date'].encode() + b'</br>Dir: ' + cur_dir.encode())
 
     def do_GET(self):
         try:
-
             path = self.path.split('?')[0]
             args = {}
             if self.path.find('?') != -1:
                 for p in self.path.split('?')[1].split('&'):
                     args[p.split('=')[0]] = p.split('=')[1]
-
-            if path == '/get_since':
-                if 'date' not in args.keys():
-                    self.send_response(418)
-                    self.send_header('Content-type', 'text/html')
-                    self.end_headers()
-                    self.wfile.write(b'The server responded with a status of 418 (I\'m a Teapot)</br> Parameter date '
-                                     b'should be defined')
-                    return
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-                self.wfile.write(b'Hello, world! since + ' + args['date'].encode())
-            else:
+            try:
+                getattr(self, path[1:])(path, args)
+            except Exception:
                 self.send_response(404)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
