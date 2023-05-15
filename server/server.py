@@ -49,7 +49,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 try:
-    httpd = HTTPServer(('localhost', 8000), SimpleHTTPRequestHandler)
+    httpd = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
+    print('Best fileserver has started!')
     httpd.serve_forever()
 except KeyboardInterrupt:
     httpd.shutdown()
