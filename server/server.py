@@ -32,6 +32,8 @@ class SimpleHTTPRequestHandler(serverbase.ServerBase):
 
     def delete_delete(self, path, args):
         name = args['name']
+        if not self.repo.exists(name):
+            self._standard_resp(b'file doesnt exist')
         self.repo.delete(name)
         self._standard_resp(b'ok')
 
