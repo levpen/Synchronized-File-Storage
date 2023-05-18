@@ -1,0 +1,10 @@
+version: '3'
+services:
+  pythonside:
+    image: djhovi/sync_file_storage
+    ports:
+      - 8000:8000
+  nginxside:
+    image: my-nginx-image
+    ports:
+      - 8004:80
