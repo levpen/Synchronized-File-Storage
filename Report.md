@@ -17,7 +17,7 @@ Our project will represent a remote server with which we can synchronize files (
 
 On the server side we decided to implement the following API on Python.
 ### Server API
-- GET: /get_since - returns names of files since date
+- GET: /get_since - returns files since the date argument
   
   Params:
   - date: date-time (timestamp) from which the client wants to get new data 
