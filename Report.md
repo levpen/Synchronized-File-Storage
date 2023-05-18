@@ -15,7 +15,7 @@ Our project will represent a remote server with which we can synchronize files (
 
 ## Execution steps
 
-On the server side we decided to implement the following API on Python.
+On the server side we decided to implement the following API.
 ### Server API
 - GET: /get_since - returns files since the date argument
   
@@ -32,12 +32,33 @@ On the server side we decided to implement the following API on Python.
   - file: binary data of the file
   - name: the full name of the file from the root of the synchronized directory
 
-For the client we choose to ...
+For the client we choose the following API:
+### Client API:
+- setup - setep the client for use
+
+- sync - syncs data from server
+
+  Arguments:
+  - -d: Argument for date_from
+  - -dirs(optional): Argument for dirs
+- info - list config data
+- push - push data onto the server
+
+  Arguments:
+  - file_names - files to push to the server
+- delete - delete data from server
+
+  Arguments:
+  - file_names - files to delete from the server
 
 
 
 ## Tests and PoC
 
+To test the code we made the docker image which starts several clients and runs some commands. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
+
 
 
 ## Summary
+
+In summary, we realized what we wanted, but our project still can be improved in many ways. For future improvements we could add merging conflicts resolution.
