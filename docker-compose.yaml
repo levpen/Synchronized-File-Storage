@@ -1,7 +1,7 @@
 version: '3'
 services:
   pythonside:
-    image: djhovi/sync_file_storage
+    image: sync_file_storage:3.0
     ports:
       - 8000:8000
   nginxside:
