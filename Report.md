@@ -17,20 +17,23 @@ Our project will represent a remote server with which we can synchronize files (
 
 On the server side we decided to implement the following API on Python.
 ### Server API
-- GET: /get_since
+- GET: /get_since - returns names of files since date
   
   Params:
   - date: date-time (timestamp) from which the client wants to get new data 
   - dir (optional): a subdirectory for synchronization (if the client only wants to pull up its changes)
-- DELETE: /delete
+- DELETE: /delete - deletes needed file
   
   Params:
   - name: the name of the file to be deleted
-- POST:/post
+- POST:/post - saves file with given name
   
-  params
+  Params:
   - file: binary data of the file
   - name: the full name of the file from the root of the synchronized directory
+
+For the client we choose to ...
+
 
 
 ## Tests and PoC
