@@ -1,51 +1,39 @@
-import os
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from io import BytesIO
+import json
+import socketserver
+import repo
+import serverbase
+from http.server import HTTPServer
 
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    def get_since(self, path, args):
-        cur_dir = os.getcwd()
-        os.path.getmtime('../storage')
+class SimpleHTTPRequestHandler(serverbase.ServerBase):
+    def __init__(self, request: bytes, client_address: tuple[str, int], server: socketserver.BaseServer):
+        self.repo = repo.Repo()
+        super().__init__(request, client_address, server)
+
+    def get_get_since(self, path, args):
         if 'date' not in args.keys():
-            self.send_response(418)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(b'The server responded with a status of 418 (I\'m a Teapot)</br> Parameter date '
-                             b'should be defined')
+            self._arg_not_found()
             return
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        self.wfile.write(b'Hello, world! since + ' + args['date'].encode() + b'</br>Dir: ' + cur_dir.encode())
+        directory = ''
+        if 'dir' in args.keys():
+            directory = args['dir']
+        data = {}
+        files = self.repo.get_since(int(args['date']), directory)
+        for file in files:
+            data[file] = self.repo.get(file).decode()
+        self._standard_resp(json.dumps(data).encode())
 
-    def do_GET(self):
-        try:
-            path = self.path.split('?')[0]
-            args = {}
-            if self.path.find('?') != -1:
-                for p in self.path.split('?')[1].split('&'):
-                    args[p.split('=')[0]] = p.split('=')[1]
-            try:
-                getattr(self, path[1:])(path, args)
-            except Exception:
-                self.send_response(404)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-                self.wfile.write(b'Not found')
-        except Exception:
-            self.send_response(500)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(b'Internal Server Error')
+    def post_post(self, path, args):
+        data = self.rfile.read(int(self.headers['Content-Length']))
+        name = args['name']
+        self.repo.save(name, data)
 
-    def do_POST(self):
-        self.send_response(501)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        response = BytesIO()
-        response.write(b'Not implemented')
-        self.wfile.write(response.getvalue())
+        self._standard_resp(b'ok')
+
+    def delete_delete(self, path, args):
+        name = args['name']
+        self.repo.delete(name)
+        self._standard_resp(b'ok')
 
 
 try:
