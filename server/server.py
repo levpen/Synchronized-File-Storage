@@ -23,6 +23,9 @@ class SimpleHTTPRequestHandler(serverbase.ServerBase):
             data[file] = self.repo.get(file).decode()
         self._standard_resp(json.dumps(data).encode())
 
+    def get_ping(self, path, args):
+        self._standard_resp(b'')
+
     def post_post(self, path, args):
         data = self.rfile.read(int(self.headers['Content-Length']))
         name = args['name']
