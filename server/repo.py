@@ -8,15 +8,15 @@ class Repo:
         self.history = {}
         if not os.path.exists('storage/'):
             os.mkdir('storage')
-        if not os.path.isfile('.history'):
-            with open(f'.history', 'w') as f:
-                pass
+        if not os.path.isfile('.history') or os.path.getsize('.history') == 0:
+            with open('.history', 'wb') as f:
+                pickle.dump({}, f)
         with open(f'.history', 'rb') as f:  # deserializing dict with history of changes
             self.history = pickle.load(f)
         pass
 
     def __del__(self):
-        with open(f'.history', 'wb') as f:  # serializing dict with history of changes
+        with open('.history', 'wb') as f:  # serializing dict with history of changes
             pickle.dump(self.history, f)
 
     def save(self, filename, data):  # saves file with given name
