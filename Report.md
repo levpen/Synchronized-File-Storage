@@ -15,7 +15,26 @@ Our project will represent a remote server with which we can synchronize files (
 
 ## Execution steps
 
+On the server side we decided to implement the following API on Python.
+### Server API
+- GET: /get_since
+  
+  Params:
+  - date: date-time (timestamp) from which the client wants to get new data 
+  - dir (optional): a subdirectory for synchronization (if the client only wants to pull up its changes)
+- DELETE: /delete
+  
+  Params:
+  - name: the name of the file to be deleted
+- POST:/post
+  
+  params
+  - file: binary data of the file
+  - name: the full name of the file from the root of the synchronized directory
+
 
 ## Tests and PoC
+
+
 
 ## Summary
