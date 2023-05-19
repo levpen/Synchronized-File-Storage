@@ -23,6 +23,9 @@ class SimpleHTTPRequestHandler(serverbase.ServerBase):
             data[file] = self.repo.get(file).decode()
         self._standard_resp(json.dumps(data).encode())
 
+    def get_ping(self, path, args):
+        self._standard_resp(b'')
+
     def post_post(self, path, args):
         data = self.rfile.read(int(self.headers['Content-Length']))
         name = args['name']
@@ -32,13 +35,17 @@ class SimpleHTTPRequestHandler(serverbase.ServerBase):
 
     def delete_delete(self, path, args):
         name = args['name']
+        if not self.repo.exists(name):
+            self._standard_resp(b'file doesnt exist')
         self.repo.delete(name)
         self._standard_resp(b'ok')
 
+HOST = '0.0.0.0'
+PORT = 8000
 
 try:
-    httpd = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-    print('Best fileserver has started!')
+    httpd = HTTPServer((HOST, PORT), SimpleHTTPRequestHandler)
+    print('fileserver has started!', HOST, PORT)
     httpd.serve_forever()
 except KeyboardInterrupt:
     httpd.shutdown()
