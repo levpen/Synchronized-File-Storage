@@ -61,7 +61,8 @@ For the client we choose the following API:
 
 To test the code we made the docker image which starts several clients and runs some commands. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
 
-
+## Difficulties faced
+During the work on our project we managed to develop the working version of the product after long period of debugging and rechecking. In overall, we learned to communicate in command properly, distribute the work over each team member, and learned many technical skills.
 
 ## Summary
 
