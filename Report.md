@@ -38,6 +38,13 @@ Firstly, the server starts from the server.py on the ```http://127.0.0.1:8000```
 The client always starts from the ```main.py```. When we first start the client we should initiate the setup with ```main.py setup``` command. This command saves the url address of the server into the ```config.json```. Next we can operate with the client via ```sync```, ```push```, or ```delete``` commands.
 For the client we choose the following API:
 #### Client API:
+
+optional arguments:
+  - -h, --help            show this help message and exit
+  - -v, --verbose         Enable verbose output
+ 
+ Commands: 
+
 - setup - setep the client for use
 - info - shows config data inside ```config.json```
 
