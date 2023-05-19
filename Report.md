@@ -11,12 +11,14 @@ Our project will represent a remote server with which we can synchronize files (
 - Dzhovidon Vakhidov (starkda) - docker configuraion
 - Bulat Kutlugallyamov (bulatok) - client
 - Anton Sokrkin (Antony-Sk) - server
-- Lev Gorbunkov (levpen) - report
+- Lev Gorbunkov (levpen) - report, GH Actions
 
 ## Execution steps
+Our project has a server-client architecture, so we divided the server and client parts.
 
-On the server side we decided to implement the following API.
-### Server API
+### Server part
+Firstly, the server starts from the server.py. It saves the data into the ```./storage``` and also contains history in binary format inside ```.history``` file. On the server side we decided to implement the following API.
+#### Server API
 - GET: /get_since - returns files since the date argument
   
   Params:
@@ -32,16 +34,18 @@ On the server side we decided to implement the following API.
   - file: binary data of the file
   - name: the full name of the file from the root of the synchronized directory
 
+### Client part
+The client always starts from the ```main.py```. When we first start the client we should initiate the setup with ```main.py setup``` command. This command saves the url address of the server into the ```config.json```. Next we can operate with the client via ```sync```, ```push```, or ```delete``` commands.
 For the client we choose the following API:
-### Client API:
+#### Client API:
 - setup - setep the client for use
+- info - shows config data inside ```config.json```
 
 - sync - syncs data from server
 
   Arguments:
-  - -d: Argument for date_from
+  - -d: Argument for date_from (e.g. ```-d '2022 year'```)
   - -dirs(optional): Argument for dirs
-- info - list config data
 - push - push data onto the server
 
   Arguments:
@@ -61,4 +65,4 @@ To test the code we made the docker image which starts several clients and runs 
 
 ## Summary
 
-In summary, we realized what we wanted, but our project still can be improved in many ways. For future improvements we could add merging conflicts resolution.
+In summary, we realized what we wanted, but our project still can be improved in many ways. For future improvements we could add merging conflicts resolution and other file formats besides txt.
