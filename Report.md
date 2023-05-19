@@ -21,7 +21,7 @@ Firstly, the server starts from the server.py on the ```http://127.0.0.1:8000```
 #### Server API
 - GET: /get_since - returns files since the date argument
   
-  Params:https://www.youtube.com/watch?v=FNiAOhREgmQ
+  Params:
   - date: date-time (timestamp) from which the client wants to get new data 
   - dir (optional): a subdirectory for synchronization (if the client only wants to pull up its changes)
 - DELETE: /delete - deletes needed file
