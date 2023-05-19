@@ -78,7 +78,7 @@ where commands are sync, push, setup, info ... with all flags.
 
 ## Tests and PoC
 
-To test the code we made the docker image which starts the server on port 80. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
+To test the code we made the docker image which starts the server on port 80 with command ```docker-compose up --build```. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
 
 ### Demo: https://www.youtube.com/watch?v=FNiAOhREgmQ
 
