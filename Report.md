@@ -21,7 +21,7 @@ Firstly, the server starts from the server.py on the ```http://127.0.0.1:8000```
 #### Server API
 - GET: /get_since - returns files since the date argument
   
-  Params:
+  Params:https://www.youtube.com/watch?v=FNiAOhREgmQ
   - date: date-time (timestamp) from which the client wants to get new data 
   - dir (optional): a subdirectory for synchronization (if the client only wants to pull up its changes)
 - DELETE: /delete - deletes needed file
@@ -78,9 +78,9 @@ where commands are sync, push, setup, info ... with all flags.
 
 ## Tests and PoC
 
-To test the code we made the docker image which starts several clients and runs some commands. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
+To test the code we made the docker image which starts the server on port 80. We also used linter with flake8 integrated in GitHub Actions for CI/CD.
 
-### Demo: https://www.youtube.com/watch?v=TqQ26icdvks
+### Demo: https://www.youtube.com/watch?v=FNiAOhREgmQ
 
 ## Difficulties faced
 During the work on our project we managed to develop the working version of the product after long period of debugging and rechecking. In overall, we learned to communicate in command properly, distribute the work over each team member, and learned many technical skills.
