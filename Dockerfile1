@@ -21,7 +21,7 @@ COPY nginx.conf /etc/nginx/conf.d/
 
 
 # Expose the Nginx port
-EXPOSE 81
+EXPOSE 80
 
 # Start Nginx when the container launches
 CMD nginx -g  'daemon off;'
