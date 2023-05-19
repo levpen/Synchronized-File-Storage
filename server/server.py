@@ -40,9 +40,12 @@ class SimpleHTTPRequestHandler(serverbase.ServerBase):
         self.repo.delete(name)
         self._standard_resp(b'ok')
 
+HOST = '0.0.0.0'
+PORT = 8000
 
 try:
-    httpd = HTTPServer(('localhost', 8000), SimpleHTTPRequestHandler)
+    httpd = HTTPServer((HOST, PORT), SimpleHTTPRequestHandler)
+    print('fileserver has started!', HOST, PORT)
     httpd.serve_forever()
 except KeyboardInterrupt:
     httpd.shutdown()
