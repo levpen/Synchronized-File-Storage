@@ -62,6 +62,18 @@ optional arguments:
   Arguments:
   - file_names - files to delete from the server
 
+Also our client can be used as Debain package. To make it work user need write command
+```bash
+  $ make package
+```
+
+Now user can just write something like
+```
+  $ sfsclient COMMAND
+```
+where commands are sync, push, setup, info ... with all flags.
+
+
 
 
 ## Tests and PoC
