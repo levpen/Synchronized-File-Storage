@@ -16,8 +16,15 @@ Our project will represent a remote server with which we can synchronize files (
 ## Execution steps
 Our project has a server-client architecture, so we divided the server and client parts.
 
+Where nginx works as server proxy (proxy for python backend server).
+
 ### Server part
-Firstly, the server starts from the server.py on the ```http://127.0.0.1:8000```. It saves the data into the ```./storage``` and also contains history in binary format inside ```.history``` file. On the server side we decided to implement the following API.
+To start server (start nginx and python server)
+```bash
+  $ docker-compose up --build
+```
+
+Firstly, the server starts from the server.py on the ```http://127.0.0.1``` (this is nginx on 80 port). It saves the data into the ```./storage``` and also contains history in binary format inside ```.history``` file. On the server side we decided to implement the following API.
 #### Server API
 - GET: /get_since - returns files since the date argument
   
@@ -73,7 +80,12 @@ Now user can just write something like
 ```
 where commands are sync, push, setup, info ... with all flags.
 
+To setup firstly run
+```bash
+  $ sfsclient setup
+```
 
+Then use commands `push` for pushing files and `sync` for syncing local directory with server.
 
 
 ## Tests and PoC
